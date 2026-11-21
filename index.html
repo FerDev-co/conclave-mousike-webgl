@@ -1,131 +1,323 @@
+
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Conclave Mousike By Luis Guerrero</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123F70">
+  <meta name="description" content="CÓNCLAVE MOUSIKE: una experiencia interactiva para explorar la historia y leer música.">
+
+  <title>CÓNCLAVE MOUSIKE | Archivo de versiones</title>
+
+  <style>
+    :root {
+      --blue: #123F70;
+      --purple: #51418C;
+      --turquoise: #43A6A0;
+      --gold: #FFD36A;
+      --light: #F3F1EC;
+      --text: #26354A;
+      --muted: #68778A;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 85% 15%, #51418C 0%, transparent 38%),
+        linear-gradient(135deg, #123F70, #182B49);
+      color: white;
+      padding: 75px 24px 85px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      right: -100px;
+      bottom: -170px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: normal;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .tagline {
+      font-family: Georgia, serif;
+      font-size: clamp(17px, 3vw, 23px);
+      color: #E5D9B9;
+      font-style: italic;
+      margin-bottom: 22px;
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: auto;
+      color: #D5DFEC;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .gold-line {
+      width: 65px;
+      height: 3px;
+      background: var(--gold);
+      margin: 28px auto 0;
+      border-radius: 4px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: -35px auto 0;
+      padding: 0 22px 65px;
+      position: relative;
+    }
+
+    .catalog {
+      background: white;
+      border-radius: 14px;
+      padding: 38px;
+      box-shadow: 0 12px 40px rgba(18, 63, 112, 0.10);
+    }
+
+    .section-label {
+      color: var(--turquoise);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: var(--blue);
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .version-card {
+      border: 1px solid #E1E6ED;
+      border-left: 4px solid var(--turquoise);
+      border-radius: 9px;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .version-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(18, 63, 112, 0.09);
+    }
+
+    .version-number {
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .version-description {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 490px;
+    }
+
+    .status {
+      display: inline-block;
+      background: #E4F3EF;
+      color: #247568;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      padding: 13px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .button:hover {
+      background: var(--purple);
+    }
+
+    .coming-soon {
+      margin-top: 16px;
+      padding: 18px 22px;
+      background: #F6F7FA;
+      border: 1px dashed #D3DAE4;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .coming-soon strong {
+      color: var(--blue);
+      font-size: 14px;
+    }
+
+    .coming-soon span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 20px 30px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    footer strong {
+      color: var(--blue);
+    }
+
+    @media (max-width: 650px) {
+      .hero {
+        padding: 60px 22px 75px;
+      }
+
+      .catalog {
+        padding: 25px 20px;
+      }
+
+      .version-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .coming-soon {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="eyebrow">Experiencia interactiva</div>
+
+    <h1>CÓNCLAVE MOUSIKE</h1>
+
+    <p class="tagline">Lee música mientras exploras la historia.</p>
+
+    <p class="intro">
+      Una experiencia de exploración interactiva que conecta
+      música, historia y descubrimiento. Explora los escenarios,
+      encuentra las pistas y reconstruye las historias musicales.
+    </p>
+
+    <div class="gold-line"></div>
+  </header>
+
+  <main>
+    <section class="catalog">
+
+      <div class="section-label">Archivo del proyecto</div>
+
+      <h2>Versiones disponibles</h2>
+
+      <p class="section-description">
+        Consulta las publicaciones de CÓNCLAVE MOUSIKE y accede
+        a las diferentes versiones de la experiencia interactiva.
+      </p>
+
+      <article class="version-card">
+        <div>
+          <div class="status">Disponible</div>
+
+          <div class="version-number">Versión 1.0.0</div>
+
+          <p class="version-description">
+            Primera publicación del prototipo interactivo.
+            Una experiencia inicial de exploración e interacción
+            con los objetos del escenario.
+          </p>
         </div>
+
+        <a
+          class="button"
+          href="./versions/v1.0.0/"
+          target="_blank"
+          rel="noopener noreferrer">
+          Explorar versión →
+        </a>
+      </article>
+
+      <div class="coming-soon">
+        <strong>Versión 1.1.0</strong>
+        <span>Próximamente · En desarrollo</span>
       </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">My project (1)</div>
-      </div>
-    </div>
-    <script>
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
+    </section>
+  </main>
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
-      }
+  <footer>
+    <strong>CÓNCLAVE MOUSIKE</strong><br>
+    Proyecto de experiencia interactiva musical.<br>
+    Archivo de publicaciones y versiones.
+  </footer>
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/WebGL_Conclave_Mousike_Final.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/WebGL_Conclave_Mousike_Final.data.unityweb",
-        frameworkUrl: buildUrl + "/WebGL_Conclave_Mousike_Final.framework.js.unityweb",
-        codeUrl: buildUrl + "/WebGL_Conclave_Mousike_Final.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "My project (1)",
-        productVersion: "0.1",
-        showBanner: unityShowBanner,
-      };
-
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
-      // If you would like all file writes inside Unity Application.persistentDataPath
-      // directory to automatically persist so that the contents are remembered when
-      // the user revisits the site the next time, uncomment the following line:
-      // config.autoSyncPersistentDataPath = true;
-      // This autosyncing is currently not the default behavior to avoid regressing
-      // existing user projects that might rely on the earlier manual
-      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
-      // expected to change.
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
-
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-            };
-
-      document.body.appendChild(script);
-
-    </script>
-  </body>
+</body>
 </html>
